@@ -44,6 +44,14 @@ PACKAGECONFIG:append:class-target = " \
     udev \
 "
 
+
+# libcryptsetup default PBKDF algorithm, Argon2 memory cost (KB), parallel threads and iteration time (ms)
+LUKS2_PBKDF ?= "argon2i"
+LUKS2_MEMORYKB ?= "1048576"
+LUKS2_PARALLEL_THREADS ?= "4"
+LUKS2_ITERTIME ?= "2000"
+
+
 PACKAGECONFIG[keyring] = "--enable-keyring,--disable-keyring"
 PACKAGECONFIG[fips] = "--enable-fips,--disable-fips"
 PACKAGECONFIG[pwquality] = "--enable-pwquality,--disable-pwquality,libpwquality"
@@ -69,6 +77,10 @@ PACKAGECONFIG[nss] = "--with-crypto_backend=nss,,nss"
 PACKAGECONFIG[kernel] = "--with-crypto_backend=kernel"
 PACKAGECONFIG[nettle] = "--with-crypto_backend=nettle,,nettle"
 PACKAGECONFIG[luks2] = "--with-default-luks-format=LUKS2,--with-default-luks-format=LUKS1"
+PACKAGECONFIG[luks2-pbkdf] = "--with-luks2-pbkdf=${LUKS2_PBKDF}"
+PACKAGECONFIG[luks2-memorykb] = "--with-luks2-memory-kb=${LUKS2_MEMORYKB}"
+PACKAGECONFIG[luks2-parallel-threads] = "--with-luks2-parallel-threads=${LUKS2_PARALLEL_THREADS}"
+PACKAGECONFIG[luks2-itertime] = "--with-luks2-iter-time=${LUKS2_ITERTIME}"
 
 EXTRA_OECONF = "--enable-static"
 # Building without largefile is not supported by upstream
